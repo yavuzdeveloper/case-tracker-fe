@@ -1,45 +1,13 @@
 "use client";
 
-import {
-  useCreateTask,
-  useDeleteTask,
-  useTasks,
-  useUpdateTask,
-} from "@/app/hooks/useTasks";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import TaskForm from "./TaskForm";
 import TaskList from "./TaskList";
 import { useState } from "react";
 import { Task } from "@/lib/types";
 import Header from "./Header";
 
-type CaseTrackerProps = {
-  // tasks?: any[];
-  // isLoading: boolean;
-  // error?: Error;
-  // onCreateTask: (task: any) => void;
-  // onDeleteTask: (id: string) => void;
-  // onUpdateTask: (id: string, task: any) => void;
-  // isCreating: boolean;
-};
+type CaseTrackerProps = {};
 
 export default function CaseTracker({}: CaseTrackerProps) {
-  // const { data: tasks, isLoading, error } = useTasks();
-  // const { mutate: createTask } = useCreateTask();
-  // const { mutate: deleteTask } = useDeleteTask();
-  // const { mutate: updateTask } = useUpdateTask();
-
-  // if (isLoading) return <div>Loading...</div>;
-  // if (error) return <div>Error loading tasks</div>;
-
   const [tasks, setTasks] = useState<Task[]>([]);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
   const [isCreateTaskModalOpen, setIsCreateTaskModalOpen] = useState(false);

@@ -36,14 +36,6 @@ export default function TaskList({
     tasks?.slice((page - 1) * PAGE_TASK_SIZE, page * PAGE_TASK_SIZE) || [];
 
   const isLoading = false;
-  // if (error)
-  //   return (
-  //     <Card className="p-6 text-center text-destructive">
-  //       Error loading tasks
-  //     </Card>
-  //   );
-
-  console.log("tasks", tasks);
 
   return (
     <div className="container mx-auto p-8 space-y-6 -mt-4">
