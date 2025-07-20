@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import TaskCard from "./TaskCard";
-import { useDeleteTask, useTasks, useUpdateTask } from "@/app/hooks/useTasks";
 import { Card } from "@/components/ui/card";
 import { Task } from "@/lib/types";
 
@@ -16,6 +15,7 @@ type TaskListProps = {
   onDelete: (id: string) => void;
   onUpdate: (task: Task) => void;
   isFiltered: boolean;
+  isLoading: boolean;
 };
 
 export default function TaskList({
@@ -23,19 +23,15 @@ export default function TaskList({
   onDelete,
   onUpdate,
   isFiltered,
+  isLoading,
 }: TaskListProps) {
   const [page, setPage] = useState(1);
-  // const { data: tasks, isLoading, error } = useTasks();
-  // const { mutate: deleteTask } = useDeleteTask();
-  // const { mutate: updateTask } = useUpdateTask();
 
   // Pagination
   const totalTasks = tasks?.length || 0;
   const totalPages = Math.ceil(totalTasks / PAGE_TASK_SIZE);
   const paginatedTasks =
     tasks?.slice((page - 1) * PAGE_TASK_SIZE, page * PAGE_TASK_SIZE) || [];
-
-  const isLoading = false;
 
   return (
     <div

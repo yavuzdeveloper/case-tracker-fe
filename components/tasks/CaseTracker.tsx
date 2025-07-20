@@ -4,31 +4,42 @@ import TaskList from "./TaskList";
 import { useState } from "react";
 import { Task } from "@/lib/types";
 import Header from "./Header";
+import {
+  useCreateTask,
+  useDeleteTask,
+  useTasks,
+  useUpdateTask,
+} from "@/hooks/useTasks";
 
 type CaseTrackerProps = {};
 
 export default function CaseTracker({}: CaseTrackerProps) {
-  const [tasks, setTasks] = useState<Task[]>([]);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
   const [isCreateTaskModalOpen, setIsCreateTaskModalOpen] = useState(false);
   const [status, setStatus] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
 
+  //React Query hooks
+  const { data: tasks = [], isLoading } = useTasks();
+  const createTaskMutation = useCreateTask();
+  const updateTaskMutation = useUpdateTask();
+  const deleteTaskMutation = useDeleteTask();
+
+  // Create
   const createTask = (task: Omit<Task, "id">) => {
-    const newTask = { ...task, id: Date.now().toString() };
-    setTasks(prev => [...prev, newTask]);
+    createTaskMutation.mutate(task);
     setIsCreateTaskModalOpen(false);
   };
 
+  // Update
   const updateTask = (updatedTask: Task) => {
-    setTasks(prev =>
-      prev.map(task => (task.id === updatedTask.id ? updatedTask : task))
-    );
+    updateTaskMutation.mutate(updatedTask);
     setEditingTask(null);
   };
 
+  // Delete
   const deleteTask = (id: string) => {
-    setTasks(prev => prev.filter(task => task.id !== id));
+    deleteTaskMutation.mutate(id);
   };
 
   const applyFilters = (status: string, searchQuery: string) => {
@@ -56,6 +67,7 @@ export default function CaseTracker({}: CaseTrackerProps) {
         tasks={filteredTasks}
         onDelete={deleteTask}
         onUpdate={updateTask}
+        isLoading={isLoading}
         isFiltered={
           (searchQuery.trim() !== "" || status !== "all") && tasks.length > 0
         }
