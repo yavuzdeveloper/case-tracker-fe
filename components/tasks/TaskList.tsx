@@ -9,23 +9,21 @@ import EmptyTask from "./EmptyTask";
 import CustomPagination from "./CustomPagination";
 import TaskListSkeleton from "./TaskListSkeleton";
 import { PAGE_TASK_SIZE } from "@/constant";
+import { useSearchParams } from "next/navigation";
 
 type TaskListProps = {
   tasks: Task[];
-  onDelete: (id: string) => void;
-  onUpdate: (task: Task) => void;
   isFiltered: boolean;
   isLoading: boolean;
 };
 
 export default function TaskList({
   tasks,
-  onDelete,
-  onUpdate,
   isFiltered,
   isLoading,
 }: TaskListProps) {
-  const [page, setPage] = useState(1);
+  const searchParams = useSearchParams();
+  const [page, setPage] = useState(Number(searchParams.get("page") || 1));
 
   // Pagination
   const totalTasks = tasks?.length || 0;
@@ -55,7 +53,7 @@ export default function TaskList({
                 key={task.id}
                 className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)]"
               >
-                <TaskCard task={task} onDelete={onDelete} onUpdate={onUpdate} />
+                <TaskCard task={task} />
               </div>
             ))
           ) : (

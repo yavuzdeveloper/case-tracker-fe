@@ -7,7 +7,6 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const getBadgeVariant = (status: TaskStatus) => {
-  console.log("status", status);
   switch (status) {
     case "done":
       return "primary";

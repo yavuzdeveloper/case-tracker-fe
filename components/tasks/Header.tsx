@@ -34,6 +34,10 @@ interface HeaderProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   applyFilters: (status: string, query: string) => void;
+  status: string;
+  setStatus: (status: string) => void;
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
 }
 
 const title = "Task Manager";
@@ -43,9 +47,13 @@ export default function Header({
   open,
   onOpenChange,
   applyFilters,
+  status,
+  setStatus,
+  searchQuery,
+  setSearchQuery,
 }: HeaderProps) {
-  const [status, setStatus] = useState("all");
-  const [searchQuery, setSearchQuery] = useState("");
+  // const [status, setStatus] = useState("all");
+  // const [searchQuery, setSearchQuery] = useState("");
   const [isFilterPopoverOpen, setIsFilterPopoverOpen] = useState(false);
 
   const isMobile = useIsMobile();

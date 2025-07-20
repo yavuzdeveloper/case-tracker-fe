@@ -21,15 +21,25 @@ import { TaskDeleteDialog } from "./TaskDeleteDialog";
 import { Badge } from "@/components/ui/badge";
 import { getBadgeVariant } from "@/lib/utils";
 import { Task } from "@/lib/types";
+import { useDeleteTaskMutation, useUpdateTaskMutation } from "@/api/api";
 
 interface TaskCardProps {
   task: Task;
-  onDelete: (id: string) => void;
-  onUpdate: (task: Task) => void;
 }
 
-export default function TaskCard({ task, onDelete, onUpdate }: TaskCardProps) {
+export default function TaskCard({ task }: TaskCardProps) {
   const [isEditOpen, setIsEditOpen] = useState(false);
+
+  const [updateTaskMutation] = useUpdateTaskMutation();
+  const [deleteTaskMutation] = useDeleteTaskMutation();
+
+  const updateTask = async (updatedTask: Task) => {
+    await updateTaskMutation(updatedTask);
+  };
+
+  const deleteTask = async (id: string) => {
+    await deleteTaskMutation(id);
+  };
 
   return (
     <Card className="h-[170px] flex flex-col">
@@ -61,13 +71,13 @@ export default function TaskCard({ task, onDelete, onUpdate }: TaskCardProps) {
               <TaskForm
                 initialValues={task}
                 onSubmit={data => {
-                  onUpdate({ id: task.id, ...data });
+                  updateTask({ id: task.id, ...data });
                   setIsEditOpen(false);
                 }}
               />
             </DialogContent>
           </Dialog>
-          <TaskDeleteDialog taskId={task.id} onDelete={onDelete} />
+          <TaskDeleteDialog taskId={task.id} onDelete={deleteTask} />
         </div>
       </CardHeader>
       <CardContent
