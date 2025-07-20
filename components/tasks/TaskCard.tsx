@@ -37,6 +37,7 @@ export default function TaskCard({ task, onDelete, onUpdate }: TaskCardProps) {
         <CardTitle
           className="text-base line-clamp-1 cursor-pointer"
           onClick={() => setIsEditOpen(true)}
+          data-testid="task-title"
         >
           {task.title}
         </CardTitle>
@@ -78,14 +79,21 @@ export default function TaskCard({ task, onDelete, onUpdate }: TaskCardProps) {
             task.description ? "max-h-[40px]" : ""
           }`}
           title={task.description}
+          data-testid="task-description"
         >
           {task.description || "Enter description..."}
         </p>
         <div className="flex items-center justify-between mt-auto">
-          <Badge variant={getBadgeVariant(task.status)}>
+          <Badge
+            variant={getBadgeVariant(task.status)}
+            data-testid="task-status"
+          >
             {task.status?.replace("-", " ")}
           </Badge>
-          <span className="text-xs text-muted-foreground">
+          <span
+            className="text-xs text-muted-foreground"
+            data-testid="task-due-date"
+          >
             {new Date(task.dueDate).toLocaleDateString()}
           </span>
         </div>

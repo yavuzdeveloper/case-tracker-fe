@@ -141,6 +141,7 @@ export default function Header({
           className={`${
             isDesktop ? "px-4 py-2 min-w-[140px]" : "w-10 h-10 p-0"
           } bg-white text-black hover:bg-gray-100 flex items-center justify-center`}
+          data-testid="header-create-task"
         >
           <Plus className={`w-4 h-4 ${isDesktop ? "mr-2" : ""}`} />
           {isDesktop ? "Create Task" : ""}
@@ -156,7 +157,10 @@ export default function Header({
   );
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-black text-white shadow-md">
+    <header
+      data-testid="header"
+      className="sticky top-0 z-50 w-full bg-black text-white shadow-md"
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {isMobile ? (
           <div className="md:hidden py-4 space-y-4">

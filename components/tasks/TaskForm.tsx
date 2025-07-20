@@ -135,7 +135,11 @@ export default function TaskForm({
           />
         </div>
 
-        <Button type="submit" className="w-full">
+        <Button
+          type="submit"
+          className="w-full"
+          data-testid="modal-create-task"
+        >
           {initialValues ? "Update Task" : "Create Task"}
         </Button>
       </form>

@@ -29,7 +29,7 @@ export default function CustomPagination({
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
-            data-testId="pagination-previous"
+            data-testid="pagination-previous"
             onClick={() => onPageChange(Math.max(1, page - 1))}
             className={isFirstPage ? "cursor-not-allowed" : "cursor-pointer"}
           />
@@ -43,7 +43,7 @@ export default function CustomPagination({
 
         <PaginationItem>
           <PaginationNext
-            data-testId="pagination-next"
+            data-testid="pagination-next"
             onClick={() => onPageChange(Math.min(totalPages, page + 1))}
             className={isLastPage ? "cursor-not-allowed" : "cursor-pointer"}
           />

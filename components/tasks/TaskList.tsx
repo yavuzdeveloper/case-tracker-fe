@@ -38,7 +38,10 @@ export default function TaskList({
   const isLoading = false;
 
   return (
-    <div className="container mx-auto p-8 space-y-6 -mt-4">
+    <div
+      className="container mx-auto p-8 space-y-6 -mt-4"
+      data-testid="task-list"
+    >
       <Card className="p-6">
         <div
           className="flex flex-wrap content-start gap-4 overflow-y-auto"
