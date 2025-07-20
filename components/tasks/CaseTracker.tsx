@@ -5,41 +5,33 @@ import { useState } from "react";
 import { Task } from "@/lib/types";
 import Header from "./Header";
 import {
-  useCreateTask,
-  useDeleteTask,
-  useTasks,
-  useUpdateTask,
-} from "@/hooks/useTasks";
+  useAddTaskMutation,
+  useDeleteTaskMutation,
+  useGetTasksQuery,
+  useUpdateTaskMutation,
+} from "@/api/api";
 
-type CaseTrackerProps = {};
-
-export default function CaseTracker({}: CaseTrackerProps) {
-  const [editingTask, setEditingTask] = useState<Task | null>(null);
+export default function CaseTracker() {
   const [isCreateTaskModalOpen, setIsCreateTaskModalOpen] = useState(false);
   const [status, setStatus] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
 
-  //React Query hooks
-  const { data: tasks = [], isLoading } = useTasks();
-  const createTaskMutation = useCreateTask();
-  const updateTaskMutation = useUpdateTask();
-  const deleteTaskMutation = useDeleteTask();
+  const { data: tasks = [], isLoading } = useGetTasksQuery();
+  const [addTask] = useAddTaskMutation();
+  const [updateTaskMutation] = useUpdateTaskMutation();
+  const [deleteTaskMutation] = useDeleteTaskMutation();
 
-  // Create
-  const createTask = (task: Omit<Task, "id">) => {
-    createTaskMutation.mutate(task);
+  const createTask = async (task: Omit<Task, "id">) => {
+    await addTask(task);
     setIsCreateTaskModalOpen(false);
   };
 
-  // Update
-  const updateTask = (updatedTask: Task) => {
-    updateTaskMutation.mutate(updatedTask);
-    setEditingTask(null);
+  const updateTask = async (updatedTask: Task) => {
+    await updateTaskMutation(updatedTask);
   };
 
-  // Delete
-  const deleteTask = (id: string) => {
-    deleteTaskMutation.mutate(id);
+  const deleteTask = async (id: string) => {
+    await deleteTaskMutation(id);
   };
 
   const applyFilters = (status: string, searchQuery: string) => {

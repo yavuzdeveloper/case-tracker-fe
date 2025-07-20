@@ -8,11 +8,11 @@
       "dueDate": "2025-07-20T10:00:00.000Z"
     },
     {
-      "id": "f3c3",
-      "title": "sdadsadsad",
-      "description": "  // 📂 Apply filters\n  const filteredTasks = tasks.filter(task => {\n    const titleMatch = task.title\n      .toLowerCase()\n      .includes(searchQuery.toLowerCase());\n    const statusMatch = status === \"all\" || task.status === status;\n    return titleMatch && statusMatch;\n  });",
-      "status": "todo",
-      "dueDate": "2025-07-21T10:22"
+      "id": "4b83",
+      "title": "npm install @reduxjs/toolkit react-redux",
+      "description": "npm install @reduxjs/toolkit react-redux\n",
+      "status": "done",
+      "dueDate": "2025-07-21T10:34"
     }
   ]
 }

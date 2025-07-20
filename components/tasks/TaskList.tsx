@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import TaskCard from "./TaskCard";
 import { Card } from "@/components/ui/card";
 import { Task } from "@/lib/types";
@@ -30,8 +30,12 @@ export default function TaskList({
   // Pagination
   const totalTasks = tasks?.length || 0;
   const totalPages = Math.ceil(totalTasks / PAGE_TASK_SIZE);
-  const paginatedTasks =
-    tasks?.slice((page - 1) * PAGE_TASK_SIZE, page * PAGE_TASK_SIZE) || [];
+
+  const paginatedTasks = useMemo(() => {
+    const startIndex = (page - 1) * PAGE_TASK_SIZE;
+    const endIndex = startIndex + PAGE_TASK_SIZE;
+    return tasks?.slice(startIndex, endIndex) || [];
+  }, [page, tasks]);
 
   return (
     <div
